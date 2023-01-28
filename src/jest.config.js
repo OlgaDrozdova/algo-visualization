@@ -1,0 +1,35 @@
+module.exports = {
+    roots: ['<rootDir>/src'],
+    collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts'],
+    collectCoverage: true,
+    coverageReporters: ['lcov'],
+    coverageDirectory: 'test-coverage',
+    coverageThreshold: {
+        global: {
+            branches: 0,
+            functions: 0,
+            lines: 0,
+            statements: 0,
+        },
+    },
+    coveragePathIgnorePatterns: [
+        'node_modules',
+        'mocks.ts',
+    ],
+    setupFiles: ['react-app-polyfill/jsdom'],
+    setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
+    testMatch: ['<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}', '<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}'],
+    testEnvironment: 'jsdom',
+    testRunner: '<rootDir>/node_modules/jest-circus/runner.js',
+    transform: {
+        '^.+\\.(js|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
+        '^.+\\.css$': '<rootDir>/jest/cssTransform.js',
+        '^(?!.*\\.(js|ts|tsx|css|json)$)': '<rootDir>/jest/fileTransform.js',
+    },
+    snapshotSerializers: ['enzyme-to-json/serializer'],
+    transformIgnorePatterns: ['node_modules/(?!(@vtb|@openvtb)/.*)'],
+    modulePaths: [],
+    moduleFileExtensions: ['js', 'ts', 'tsx', 'json', 'node'],
+    watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],
+    resetMocks: false,
+};
