@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const Title = styled.div`
   font-size: 56px;
@@ -30,11 +31,15 @@ const AlgoButton = styled.button`
   touch-action: manipulation;
 `;
 
+const resetData = () => ({ type: "CONTROLS/RESET_DATA" });
+
 const MainPage: React.FC = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [path, setPath] = useState<string>("");
 
   useEffect(() => {
+    dispatch(resetData());
     navigate(path);
   }, [path]);
 
@@ -42,27 +47,39 @@ const MainPage: React.FC = () => {
     <>
       <Title>Сортировки</Title>
       <ButtonContainer>
-        <AlgoButton color={"#D79922"} onClick={() => setPath("sort/bubblesort")}>
+        <AlgoButton
+          color={"#D79922"}
+          onClick={() => setPath("sort/bubblesort")}
+        >
           Пузырьком
         </AlgoButton>
-        <AlgoButton color={"#D79922"} onClick={() => setPath("sort/insertionsort")}>
+        <AlgoButton
+          color={"#D79922"}
+          onClick={() => setPath("sort/insertionsort")}
+        >
           Вставками
         </AlgoButton>
-        <AlgoButton color={"#D79922"} onClick={() => setPath("sort/selectionsort")}>
+        <AlgoButton
+          color={"#D79922"}
+          onClick={() => setPath("sort/selectionsort")}
+        >
           Выбором
+        </AlgoButton>
+        <AlgoButton color={"#D79922"} onClick={() => setPath("sort/quicksort")}>
+          Быстрая
         </AlgoButton>
       </ButtonContainer>
       <Title>Поиск</Title>
       <ButtonContainer>
-        <AlgoButton color={"#F13C20"} onClick={() => setPath("/linearsearch")}>
+        <AlgoButton color={"#F13C20"} onClick={() => setPath("search/linearsearch")}>
           Линейный
         </AlgoButton>
-        <AlgoButton color={"#F13C20"} onClick={() => setPath("/binarysearch")}>
+        <AlgoButton color={"#F13C20"} onClick={() => setPath("search/binarysearch")}>
           Бинарный
         </AlgoButton>
         <AlgoButton
           color={"#F13C20"}
-          onClick={() => setPath("/interpolationsearch")}
+          onClick={() => setPath("search/interpolationsearch")}
         >
           Интерполирующий
         </AlgoButton>

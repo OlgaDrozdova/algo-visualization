@@ -69,12 +69,13 @@ const CodeTextCustom = styled.div`
   width: 50%;
 `;
 
-const resetArray = (value: number[]) => ({
-  type: "CONTROLS/RESET_ARRAY",
-  value,
+const resetArray = (array: number[], searchItem: number) => ({
+  type: "CONTROLS/RESET_SEARCH",
+  array,
+  searchItem,
 });
 
-const SortPage: React.FC = () => {
+const SearchPage: React.FC = () => {
   const params = useParams();
   const sortId = params.id || "";
 
@@ -84,6 +85,7 @@ const SortPage: React.FC = () => {
 
   const dispatch = useDispatch();
   const inputArrayRef = useRef<HTMLInputElement>(null);
+  const inputSearchItemRef = useRef<HTMLInputElement>(null);
   const [errorText, setErrorText] = useState<string>();
   const [isError, setIsError] = useState<boolean>(false);
 
@@ -102,13 +104,17 @@ const SortPage: React.FC = () => {
       //100 numbers
       //4039, 7151, 7022, 1657, 5721, 2927, 2446, 9425, 9416, 8660, 3802, 2066, 9660, 7177, 947, 5334, 3476, 7919, 7900, 7807, 8227, 5421, 2474, 5521, 8807, 9589, 4148, 4593, 8967, 3784, 9398, 3089, 1707, 4118, 9299, 6054, 6471, 2218, 4484, 8920, 2213, 2110, 7833, 6108, 4392, 8628, 3386, 7522, 8377, 8484, 9509, 4866, 6208, 7658, 5115, 3453, 1871, 7326, 6904, 7945, 2437, 7114, 6759, 8010, 4887, 9072, 9211, 5407, 1184, 6095, 504, 3297, 921, 7425, 4235, 2420, 5172, 4569, 5275, 9699, 7275, 7779, 9579, 6677, 9663, 5571, 6814, 3958, 426, 7360, 2098, 680, 4876, 8745, 7760, 7034, 2951, 5293, 2276, 2831
       const re = /[,\s;]/g;
-      const array = inputArrayRef.current.value.trim().split(re).filter(Boolean).map(Number);
+      const array = inputArrayRef.current.value
+        .trim()
+        .split(re)
+        .filter(Boolean)
+        .map(Number);
       console.log(
         "dddd",
         inputArrayRef.current.value.trim().split(re).map(Number)
       );
       setIsError(false);
-      dispatch(resetArray(array));
+      dispatch(resetArray(array, Number(inputSearchItemRef.current?.value)));
     }
     dispatch(algoProps.dispatchtype);
   };
@@ -116,13 +122,15 @@ const SortPage: React.FC = () => {
   return (
     <Container>
       <div>
-        Введите числа для сортировки (не больше 100 значений). В качестве
-        разделителя используйте пробел, запятую или точку с запятой.
+        Введите числа - элементы массива (не больше 100 значений). В качестве
+        разделителя используйте пробел, запятую или точку с запятой. Или
+        воспользуйтесь ХрандомайзеромХ.
       </div>
+      <NumbersInput type="text" ref={inputArrayRef} />
       <ContainerInput>
-        <NumbersInput type="text" ref={inputArrayRef} />
-        {/* <ButtonRun onClick={()=>{}}>Запустить случайными значениями</ButtonRun> */}
-        <ButtonRun onClick={createArray}>Запустить сортировку</ButtonRun>
+        <div>Введите искомое значение</div>
+        <NumbersInput type="text" ref={inputSearchItemRef} />
+        <ButtonRun onClick={createArray}>Запустить поиск</ButtonRun>
       </ContainerInput>
       <>
         <SortingSpeed />
@@ -137,4 +145,4 @@ const SortPage: React.FC = () => {
     </Container>
   );
 };
-export default SortPage;
+export default SearchPage;

@@ -7,8 +7,15 @@ export interface IAction {
     value: string | number[]
 }
 
+export interface IActionSort {
+    type: string,
+    array: number[],
+    searchItem: number,
+}
+
 export interface IArraySettings {
     array: string | number[],
+    searchElement: number | null,
 }
 
 export interface IComparison {

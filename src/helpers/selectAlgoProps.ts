@@ -1,23 +1,29 @@
-import { bubbleSortCode, bubbleSortText, insertionSortCode, insertionSortText, selectionSortCode, selectionSortText } from "../common/algoText";
+import { binarySearchCode, binarySearchText, bubbleSortCode, bubbleSortText, insertionSortCode, insertionSortText, interpolationSearchCode, interpolationSearchText, linearSearchCode, linearSearchText, quickSortCode, quickSortText, selectionSortCode, selectionSortText } from "../common/algoText";
 
 type ReturnAlgoProps = {
   code: string;
   description: string;
-  function: () => {};
+  dispatchtype: { type: string };
 }
 
 export const selectAlgoProps = (sortId: string): ReturnAlgoProps => {
-  const bubbleSort = () => ({ type: "SORTING/BUBBLE_SORT" });
-  const insertionSort = () => ({ type: "SORTING/BUBBLE_SORT" });
-  const selectionSort = () => ({ type: "SORTING/BUBBLE_SORT" });
   switch (sortId) {
     case 'bubblesort':
-      return { code: bubbleSortCode, description: bubbleSortText, function: bubbleSort };
+      return { code: bubbleSortCode, description: bubbleSortText, dispatchtype: { type: "SORTING/BUBBLE_SORT" } };
     case 'insertionsort':
-      return { code: insertionSortCode, description: insertionSortText, function: insertionSort };
+      return { code: insertionSortCode, description: insertionSortText, dispatchtype: { type: "SORTING/INSERTION_SORT" } };
     case 'selectionsort':
-      return { code: selectionSortCode, description: selectionSortText, function: selectionSort };
+      return { code: selectionSortCode, description: selectionSortText, dispatchtype: { type: "SORTING/SELECTION_SORT" } };
+    case 'quicksort':
+      return { code: quickSortCode, description: quickSortText, dispatchtype: { type: "SORTING/QUICK_SORT" } };
+
+      case 'linearsearch':
+      return { code: linearSearchCode, description: linearSearchText, dispatchtype: { type: "SEARCHING/LINEAR_SEARCH" } };
+      case 'binarysearch':
+      return { code: binarySearchCode, description: binarySearchText, dispatchtype: { type: "SEARCHING/BINARY_SEARCH" } };
+      case 'interpolationsearch':
+      return { code: interpolationSearchCode, description: interpolationSearchText, dispatchtype: { type: "SEARCHING/INTERPOLATION_SEARCH" } };
     default:
-      return { code: '', description: '', function: bubbleSort };
+      return { code: '', description: '', dispatchtype: { type: "" } };
   }
 }

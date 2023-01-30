@@ -1,12 +1,14 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
   background: ${(props) => props.color};
   border-radius: 50%;
-  line-height: 100px;
+  line-height: 50px;
   text-align: center;
+  margin-right: 10px;
+  margin-bottom: 10px;
 `;
 
 type CircleElProps = {
