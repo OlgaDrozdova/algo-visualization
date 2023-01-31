@@ -5,6 +5,8 @@ import quickSort from './sorting/quickSorting';
 import selectionSort from './sorting/selectionSorting';
 import insertionSort from './sorting/insertionSorting';
 import linearSearch from './searching/linearSearching';
+import binarySearch from './searching/binarySearching';
+import interpolationSearch from './searching/interpolationSearching';
 
 
 export default function* rootSaga() {
@@ -15,5 +17,7 @@ export default function* rootSaga() {
     ...quickSort,
     ...insertionSort,
     ...linearSearch,
+    ...binarySearch,
+    ...interpolationSearch,
   ]);
 };

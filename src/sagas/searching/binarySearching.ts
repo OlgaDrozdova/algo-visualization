@@ -10,23 +10,27 @@ import {
 import { startSorting, setNewParams, setPause } from '../sorting/sorting';
 
 // множитель скорости сортировки
-const SPEED_MULTIPLIER = 600;
+const SPEED_MULTIPLIER = 800;
 
 // функция-помощник запускает процесс сортировки
 // и следит за результатом его выполнения
 export const getArray = (state: { array: any }) => state.array;
-function* linearSearchHelper() {
+function* binarySearchHelper() {
 
     const { array, searchElement } = yield select(({ arraySettings }) => ({
         array: arraySettings.array,
         searchElement: arraySettings.searchElement
-      }));
+    }));
+
+    array.sort(function (a: number, b: number) {
+        return a - b;
+    })
 
     yield startSorting();
 
     // гонка для возможности прерывания процесса сортировки
     const { success } = yield race({
-        success: linearSearch(array, searchElement),
+        success: binarySearch(array, searchElement),
         canceled: take('COMPARISON/RESET')
     });
 
@@ -37,25 +41,34 @@ function* linearSearchHelper() {
 }
 
 // основная функция 
-function* linearSearch(array: number[], searchElement: number) {
+function* binarySearch(array: number[], searchElement: number) {
 
-    const arrayLength = array.length;
-    let i= 0; 
-    array[arrayLength] = searchElement;
-    // yield all([
-    //     put({ type: 'CODE/SET_ACTIVE_STRING', value: 2 }),
-    //     put({ type: 'CODE/SET_COMMENT', value: '//lalaal' })
-    // ]);
-    while (array[i] !== searchElement) {
-        yield put({ type: 'COMPARISON/SET_ACTIVE_ELEMENTS', value: [i] });
-        yield setPause(SPEED_MULTIPLIER);
-        i++;} 
-    if (i < arrayLength) {
+    let i = 0;
+    let arrayLength = array.length;
+    let k;
+    while (i < arrayLength) {
+        k = Math.floor((i + arrayLength) / 2);
+        if (searchElement <= array[k]) {
+            arrayLength = k;
+            const indexArr = array.slice(i, arrayLength).map((num) => array.indexOf(num));
+            yield setPause(SPEED_MULTIPLIER);
+            yield put({ type: 'COMPARISON/SET_ACTIVE_ELEMENTS', value: i + 1 === arrayLength ? [i, arrayLength] : indexArr });
+        }
+        else {
+            i = k + 1;
+            const indexArr = array.slice(i, arrayLength).map((num) => array.indexOf(num));
+            yield setPause(SPEED_MULTIPLIER);
+            yield put({ type: 'COMPARISON/SET_ACTIVE_ELEMENTS', value: i + 1 === arrayLength ? [i, arrayLength] : indexArr });
+        }
+    }
+    if (array[i] === searchElement) {
         yield put({ type: 'COMPARISON/SET_SORTED_ELEMENTS', value: [i] });
-        return i;   }      
+        return i;
+    }
     else return -1;
+
 }
 
 export default [
-    takeLatest('SEARCHING/LINEAR_SEARCH', linearSearchHelper),
+    takeLatest('SEARCHING/BINARY_SEARCH', binarySearchHelper),
 ];
