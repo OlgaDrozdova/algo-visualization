@@ -6,7 +6,7 @@ import CodeText from "../components/CodeText";
 import { bubbleSortCode, bubbleSortText } from "../common/algoText";
 import SortingSpeed from "../components/SortingSpeed";
 import { useParams } from "react-router-dom";
-import { selectAlgoProps } from "../helpers";
+import { createRandomArray, selectAlgoProps } from "../helpers";
 
 const Container = styled.div`
   display: flex;
@@ -69,6 +69,12 @@ const CodeTextCustom = styled.div`
   width: 50%;
 `;
 
+const RandomLink = styled.a`
+  cursor: pointer;
+  color: #f13c20;
+  font-weight: 800;
+`;
+
 const resetArray = (value: number[]) => ({
   type: "CONTROLS/RESET_ARRAY",
   value,
@@ -86,6 +92,10 @@ const SortPage: React.FC = () => {
   const inputArrayRef = useRef<HTMLInputElement>(null);
   const [errorText, setErrorText] = useState<string>();
   const [isError, setIsError] = useState<boolean>(false);
+
+  const inputRandom=()=>{
+    inputArrayRef.current.value=createRandomArray();
+  }
 
   const createArray = () => {
     const regTest = /^[1-9][0-9;,\s]/g;
@@ -117,7 +127,8 @@ const SortPage: React.FC = () => {
     <Container>
       <div>
         Введите числа для сортировки (не больше 100 значений). В качестве
-        разделителя используйте пробел, запятую или точку с запятой.
+        разделителя используйте пробел, запятую или точку с запятой. Или
+        воспользуйтесь <RandomLink onClick={inputRandom}>РАНДОМАЙЗЕРОМ</RandomLink>.
       </div>
       <ContainerInput>
         <NumbersInput type="text" ref={inputArrayRef} />

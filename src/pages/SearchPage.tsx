@@ -6,7 +6,7 @@ import CodeText from "../components/CodeText";
 import { bubbleSortCode, bubbleSortText } from "../common/algoText";
 import SortingSpeed from "../components/SortingSpeed";
 import { useParams } from "react-router-dom";
-import { selectAlgoProps } from "../helpers";
+import { createRandomArray, selectAlgoProps } from "../helpers";
 
 const Container = styled.div`
   display: flex;
@@ -69,6 +69,12 @@ const CodeTextCustom = styled.div`
   width: 50%;
 `;
 
+const RandomLink = styled.a`
+  cursor: pointer;
+  color: #f13c20;
+  font-weight: 800;
+`;
+
 const resetArray = (array: number[], searchItem: number) => ({
   type: "CONTROLS/RESET_SEARCH",
   array,
@@ -81,13 +87,15 @@ const SearchPage: React.FC = () => {
 
   const algoProps = selectAlgoProps(sortId);
 
-  //console.log('fun', algoProps.function)
-
   const dispatch = useDispatch();
   const inputArrayRef = useRef<HTMLInputElement>(null);
   const inputSearchItemRef = useRef<HTMLInputElement>(null);
   const [errorText, setErrorText] = useState<string>();
   const [isError, setIsError] = useState<boolean>(false);
+
+  const inputRandom = () => {
+    inputArrayRef.current.value = createRandomArray();
+  };
 
   const createArray = () => {
     const regTest = /^[1-9][0-9;,\s]/g;
@@ -124,7 +132,8 @@ const SearchPage: React.FC = () => {
       <div>
         Введите числа - элементы массива (не больше 100 значений). В качестве
         разделителя используйте пробел, запятую или точку с запятой. Или
-        воспользуйтесь ХрандомайзеромХ.
+        воспользуйтесь{" "}
+        <RandomLink onClick={inputRandom}>РАНДОМАЙЗЕРОМ</RandomLink>.
       </div>
       <NumbersInput type="text" ref={inputArrayRef} />
       <ContainerInput>

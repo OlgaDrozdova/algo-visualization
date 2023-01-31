@@ -4,6 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 const Title = styled.div`
+  font-size: 64px;
+  font-weight: 800;
+  text-decoration: underline;
+  margin-bottom: 40px;
+`;
+
+const SubTitle = styled.div`
   font-size: 56px;
 `;
 
@@ -45,7 +52,8 @@ const MainPage: React.FC = () => {
 
   return (
     <>
-      <Title>Сортировки</Title>
+      <Title>Учим алгоритмы наглядно</Title>
+      <SubTitle>Сортировки</SubTitle>
       <ButtonContainer>
         <AlgoButton
           color={"#D79922"}
@@ -69,12 +77,18 @@ const MainPage: React.FC = () => {
           Быстрая
         </AlgoButton>
       </ButtonContainer>
-      <Title>Поиск</Title>
+      <SubTitle>Поиск</SubTitle>
       <ButtonContainer>
-        <AlgoButton color={"#F13C20"} onClick={() => setPath("search/linearsearch")}>
+        <AlgoButton
+          color={"#F13C20"}
+          onClick={() => setPath("search/linearsearch")}
+        >
           Линейный
         </AlgoButton>
-        <AlgoButton color={"#F13C20"} onClick={() => setPath("search/binarysearch")}>
+        <AlgoButton
+          color={"#F13C20"}
+          onClick={() => setPath("search/binarysearch")}
+        >
           Бинарный
         </AlgoButton>
         <AlgoButton
@@ -84,28 +98,25 @@ const MainPage: React.FC = () => {
           Интерполирующий
         </AlgoButton>
       </ButtonContainer>
-      <Title>Хэш-таблицы</Title>
+      <SubTitle>Хэш-таблицы</SubTitle>
       <ButtonContainer>
         <AlgoButton color={"#4056A1"} onClick={() => setPath("/")}>
-          1
+          С открытой адресацией
         </AlgoButton>
         <AlgoButton color={"#4056A1"} onClick={() => setPath("/")}>
-          2
-        </AlgoButton>
-        <AlgoButton color={"#4056A1"} onClick={() => setPath("/")}>
-          3
+          С закрытой адресацией
         </AlgoButton>
       </ButtonContainer>
-      <Title>Деревья</Title>
+      <SubTitle>Ориентированные графы</SubTitle>
       <ButtonContainer>
         <AlgoButton color={"#C5CBE3"} onClick={() => setPath("/")}>
-          1
+          Поиск в ширину
         </AlgoButton>
         <AlgoButton color={"#C5CBE3"} onClick={() => setPath("/")}>
-          2
+          Поиск в глубину
         </AlgoButton>
         <AlgoButton color={"#C5CBE3"} onClick={() => setPath("/")}>
-          3
+          Алгоритм Дейкстры
         </AlgoButton>
       </ButtonContainer>
     </>
