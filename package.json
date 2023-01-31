@@ -1,6 +1,6 @@
 {
   "name": "algo-vusualization",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
     "@fontsource/comfortaa": "^4.5.10",
@@ -30,7 +30,8 @@
     "start": "BABEL_ENV=development webpack serve --node-env=dev",
     "build": "BABEL_ENV=production webpack --node-env=prod",
     "test": "jest —config=jest.config.js —watch",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d dist"
   },
   "eslintConfig": {
     "extends": [
