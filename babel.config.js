@@ -13,11 +13,11 @@ module.exports = {
       ['@babel/plugin-proposal-optional-chaining', { loose: true }],
       ['@babel/plugin-proposal-object-rest-spread', { loose: true }]
     ],
-    env: {
-      production: {
-        plugins: [
-          ['transform-react-remove-prop-types', { removeImport: true }]
-        ]
-      }
-    }
+    // env: {
+    //   production: {
+    //     plugins: [
+    //       ['transform-react-remove-prop-types', { removeImport: true }]
+    //     ]
+    //   }
+    // }
   };

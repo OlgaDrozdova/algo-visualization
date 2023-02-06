@@ -4,12 +4,12 @@ module.exports = {
   resolve: {
     alias: {
       'shared': path.resolve('src', 'shared'),
-      'constants': path.resolve('src', 'constants.styl'),
-      'jsConstants': path.resolve('src', 'constants.js'),
-      'utils': path.resolve('src', 'utils'),
-      'store': path.resolve('src', 'store.js')
+      'pages': path.resolve('src', 'pages'),
+      'components': path.resolve('src', 'components'),
+      'common': path.resolve('src', 'common'),
+      'store': path.resolve('src', 'store.ts')
     },
     modules: ['node_modules'],
-    extensions: ['.jsx', '.js', '.styl', '.svg']
+    extensions: ['.jsx', '.js','.ts','.tsx', '.svg']
   }
 };
