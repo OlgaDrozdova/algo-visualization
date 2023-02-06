@@ -100,22 +100,22 @@ const MainPage: React.FC = () => {
       </ButtonContainer>
       <SubTitle>Хэш-таблицы</SubTitle>
       <ButtonContainer>
-        <AlgoButton color={"#4056A1"} onClick={() => setPath("/")}>
+        <AlgoButton color={"#4056A1"} onClick={() => setPath("hash-table/open-addressing")}>
           С открытой адресацией
         </AlgoButton>
-        <AlgoButton color={"#4056A1"} onClick={() => setPath("/")}>
+        <AlgoButton color={"#4056A1"} onClick={() => setPath("hash-table/closed-addressing")}>
           С закрытой адресацией
         </AlgoButton>
       </ButtonContainer>
       <SubTitle>Ориентированные графы</SubTitle>
       <ButtonContainer>
-        <AlgoButton color={"#C5CBE3"} onClick={() => setPath("/")}>
+        <AlgoButton color={"#C5CBE3"} onClick={() => setPath("graph/breadth-first")}>
           Поиск в ширину
         </AlgoButton>
-        <AlgoButton color={"#C5CBE3"} onClick={() => setPath("/")}>
+        <AlgoButton color={"#C5CBE3"} onClick={() => setPath("graph/depth-first")}>
           Поиск в глубину
         </AlgoButton>
-        <AlgoButton color={"#C5CBE3"} onClick={() => setPath("/")}>
+        <AlgoButton color={"#C5CBE3"} onClick={() => setPath("graph/dijkstra")}>
           Алгоритм Дейкстры
         </AlgoButton>
       </ButtonContainer>

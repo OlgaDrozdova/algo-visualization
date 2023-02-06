@@ -157,3 +157,98 @@ export const interpolationSearchCode =
 
 export const interpolationSearchText = `Рассмотрим алгоритм поиска в отсортированном массиве, который называется интерполирующим поиском. В отличие от бинарного поиска, который всегда сравнивает ключ поиска со средним значением отсортированного массива (а следовательно, всегда уменьшает размер задачи вдвое), интерполяционный поиск учитывает значение ключа поиска при определении элемента массива, который будет сравниваться с ключом. В определенном смысле алгоритм имитирует поиск имени в телефонной книге. Если мы ищем в телефонной книге, например, Иванов — вряд ли мы будем открывать ее в средине или ближе к концу, как поступили бы при поиске Петрова.
 `;
+
+export const hashOpenAddressingCode =
+  `const InterpolationSearch = (searchItem, arr) => {
+    let mid, low = 0, high = arr.length-1;
+
+    while (arr[low] < searchItem && arr[high] > searchItem)
+    {  mid = low + Math.floor( ((searchItem-arr[low])*(high-low))/(arr[high]-arr[low]) );
+       if (arr[mid] < searchItem) low = mid+1;
+       else if (arr[mid] > searchItem) high = mid-1;
+       else return mid;
+    }
+
+    if (arr[low] === searchItem) return low;         
+    else if (arr[high] === searchItem) return high;    
+    else return -1;
+};` as const;
+
+export const hashOpenAddressingText = `Рассмотрим алгоритм поиска в отсортированном массиве, который называется интерполирующим поиском. В отличие от бинарного поиска, который всегда сравнивает ключ поиска со средним значением отсортированного массива (а следовательно, всегда уменьшает размер задачи вдвое), интерполяционный поиск учитывает значение ключа поиска при определении элемента массива, который будет сравниваться с ключом. В определенном смысле алгоритм имитирует поиск имени в телефонной книге. Если мы ищем в телефонной книге, например, Иванов — вряд ли мы будем открывать ее в средине или ближе к концу, как поступили бы при поиске Петрова.
+`;
+
+export const hashClosedAddressingCode =
+  `const InterpolationSearch = (searchItem, arr) => {
+    let mid, low = 0, high = arr.length-1;
+
+    while (arr[low] < searchItem && arr[high] > searchItem)
+    {  mid = low + Math.floor( ((searchItem-arr[low])*(high-low))/(arr[high]-arr[low]) );
+       if (arr[mid] < searchItem) low = mid+1;
+       else if (arr[mid] > searchItem) high = mid-1;
+       else return mid;
+    }
+
+    if (arr[low] === searchItem) return low;         
+    else if (arr[high] === searchItem) return high;    
+    else return -1;
+};` as const;
+
+export const hashClosedAddressingText = `Рассмотрим алгоритм поиска в отсортированном массиве, который называется интерполирующим поиском. В отличие от бинарного поиска, который всегда сравнивает ключ поиска со средним значением отсортированного массива (а следовательно, всегда уменьшает размер задачи вдвое), интерполяционный поиск учитывает значение ключа поиска при определении элемента массива, который будет сравниваться с ключом. В определенном смысле алгоритм имитирует поиск имени в телефонной книге. Если мы ищем в телефонной книге, например, Иванов — вряд ли мы будем открывать ее в средине или ближе к концу, как поступили бы при поиске Петрова.
+`;
+
+export const graphBreadthFirstCode =
+  `const InterpolationSearch = (searchItem, arr) => {
+    let mid, low = 0, high = arr.length-1;
+
+    while (arr[low] < searchItem && arr[high] > searchItem)
+    {  mid = low + Math.floor( ((searchItem-arr[low])*(high-low))/(arr[high]-arr[low]) );
+       if (arr[mid] < searchItem) low = mid+1;
+       else if (arr[mid] > searchItem) high = mid-1;
+       else return mid;
+    }
+
+    if (arr[low] === searchItem) return low;         
+    else if (arr[high] === searchItem) return high;    
+    else return -1;
+};` as const;
+
+export const graphBreadthFirstText = `Рассмотрим алгоритм поиска в отсортированном массиве, который называется интерполирующим поиском. В отличие от бинарного поиска, который всегда сравнивает ключ поиска со средним значением отсортированного массива (а следовательно, всегда уменьшает размер задачи вдвое), интерполяционный поиск учитывает значение ключа поиска при определении элемента массива, который будет сравниваться с ключом. В определенном смысле алгоритм имитирует поиск имени в телефонной книге. Если мы ищем в телефонной книге, например, Иванов — вряд ли мы будем открывать ее в средине или ближе к концу, как поступили бы при поиске Петрова.
+`;
+
+export const graphDepthFirstCode =
+  `const InterpolationSearch = (searchItem, arr) => {
+    let mid, low = 0, high = arr.length-1;
+
+    while (arr[low] < searchItem && arr[high] > searchItem)
+    {  mid = low + Math.floor( ((searchItem-arr[low])*(high-low))/(arr[high]-arr[low]) );
+       if (arr[mid] < searchItem) low = mid+1;
+       else if (arr[mid] > searchItem) high = mid-1;
+       else return mid;
+    }
+
+    if (arr[low] === searchItem) return low;         
+    else if (arr[high] === searchItem) return high;    
+    else return -1;
+};` as const;
+
+export const graphDepthFirstText = `Рассмотрим алгоритм поиска в отсортированном массиве, который называется интерполирующим поиском. В отличие от бинарного поиска, который всегда сравнивает ключ поиска со средним значением отсортированного массива (а следовательно, всегда уменьшает размер задачи вдвое), интерполяционный поиск учитывает значение ключа поиска при определении элемента массива, который будет сравниваться с ключом. В определенном смысле алгоритм имитирует поиск имени в телефонной книге. Если мы ищем в телефонной книге, например, Иванов — вряд ли мы будем открывать ее в средине или ближе к концу, как поступили бы при поиске Петрова.
+`;
+
+export const graphDijkstraCode =
+  `const InterpolationSearch = (searchItem, arr) => {
+    let mid, low = 0, high = arr.length-1;
+
+    while (arr[low] < searchItem && arr[high] > searchItem)
+    {  mid = low + Math.floor( ((searchItem-arr[low])*(high-low))/(arr[high]-arr[low]) );
+       if (arr[mid] < searchItem) low = mid+1;
+       else if (arr[mid] > searchItem) high = mid-1;
+       else return mid;
+    }
+
+    if (arr[low] === searchItem) return low;         
+    else if (arr[high] === searchItem) return high;    
+    else return -1;
+};` as const;
+
+export const graphDijkstraText = `Рассмотрим алгоритм поиска в отсортированном массиве, который называется интерполирующим поиском. В отличие от бинарного поиска, который всегда сравнивает ключ поиска со средним значением отсортированного массива (а следовательно, всегда уменьшает размер задачи вдвое), интерполяционный поиск учитывает значение ключа поиска при определении элемента массива, который будет сравниваться с ключом. В определенном смысле алгоритм имитирует поиск имени в телефонной книге. Если мы ищем в телефонной книге, например, Иванов — вряд ли мы будем открывать ее в средине или ближе к концу, как поступили бы при поиске Петрова.
+`;
