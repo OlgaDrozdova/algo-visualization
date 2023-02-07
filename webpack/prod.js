@@ -16,15 +16,7 @@ module.exports = {
     publicPath: '/'
   },
   ...shareable,
-  devtool: 'eval-cheap-module-source-map',
-  devServer: {
-    port: 3000,
-    hot: true,
-    static: {
-      directory: path.resolve('dist')
-    },
-    allowedHosts: 'all',
-  },
+  devtool: false,
   resolve: {
     extensions: [".ts", ".tsx", ".js"]
   },
