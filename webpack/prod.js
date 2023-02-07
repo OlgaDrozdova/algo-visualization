@@ -29,9 +29,9 @@ module.exports = {
     app: path.resolve("src", "index.tsx"),
   },
   output: {
-    filename: "js/[name]_[contenthash].js",
+    filename: '[name].bundle.js',
     path: path.resolve("dist"),
-    publicPath: "",
+    publicPath: "/",
   },
   ...shareable,
   devtool: false,
@@ -46,29 +46,29 @@ module.exports = {
         use: "babel-loader",
         include: /src/,
       },
-      {
-        test: /\.styl$/,
-        use: [
-          {
-            loader: MiniCss.loader,
-            options: {
-              esModule: true,
-            },
-          },
-          {
-            loader: "css-loader",
-            options: {
-              modules: {
-                localIdentName: "[hash:base64:5]",
-              },
-            },
-          },
-          "postcss-loader",
-          "stylus-loader",
-          'styled-components',
-        ],
-        include: /src/,
-      },
+    //   {
+    //     test: /\.styl$/,
+    //     use: [
+    //       {
+    //         loader: MiniCss.loader,
+    //         options: {
+    //           esModule: true,
+    //         },
+    //       },
+    //       {
+    //         loader: "css-loader",
+    //         options: {
+    //           modules: {
+    //             localIdentName: "[hash:base64:5]",
+    //           },
+    //         },
+    //       },
+    //       "postcss-loader",
+    //       "stylus-loader",
+    //       'styled-components',
+    //     ],
+    //     include: /src/,
+    //   },
     //   {
     //     test: /\.(png|woff|woff2|eot|ttf|svg)$/,
     //     loader: "url-loader",
@@ -96,22 +96,22 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    // new webpack.DefinePlugin({
-    //   APP_ENV: JSON.stringify("production"),
-    // }),
+    new webpack.DefinePlugin({
+      APP_ENV: JSON.stringify("production"),
+    }),
     new HtmlWebpackPlugin({
-      //chunks: ["app", "runtime"],
+      chunks: ["app", "runtime"],
       filename: "index.html",
       template: path.resolve("templates", "index.html"),
-      minify: { ...htmlMinify },
+      //minify: { ...htmlMinify },
     }),
     // new CopyWebpackPlugin({
     //   patterns: [{ from: path.resolve("files"), to: path.resolve("dist") }],
     // }),
-    new MiniCss({
-      filename: "css/[name]_[contenthash].css",
-      ignoreOrder: true,
-    }),
+    // new MiniCss({
+    //   filename: "css/[name]_[contenthash].css",
+    //   ignoreOrder: true,
+    // }),
     // new deadCodePlugin({
     //   patterns: ["src/**/*.*"],
     //   failOnHint: true,
