@@ -1,120 +1,80 @@
-const path = require("path");
-const webpack = require("webpack");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-// const CopyWebpackPlugin = require("copy-webpack-plugin");
-const MiniCss = require("mini-css-extract-plugin");
-const deadCodePlugin = require("webpack-deadcode-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const shareable = require("./shareable");
-
-const htmlMinify = {
-  removeComments: true,
-  preserveLineBreaks: true,
-  collapseWhitespace: true,
-  removeRedundantAttributes: true,
-  useShortDoctype: true,
-  removeEmptyAttributes: true,
-  removeStyleLinkTypeAttributes: true,
-  keepClosingSlash: true,
-  minifyJS: true,
-  minifyCSS: true,
-  minifyURLs: true,
-};
+const shareable = require('./shareable');
 
 module.exports = {
-  mode: "production",
+  mode: 'production',
   entry: {
-    app: path.resolve("src", "index.tsx"),
+    app: path.resolve('src', 'index.tsx')
   },
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve("dist"),
-    publicPath: "/",
+    path: path.resolve('dist'),
+    publicPath: '/'
   },
   ...shareable,
-  devtool: false,
+  devtool: 'eval-cheap-module-source-map',
+  devServer: {
+    port: 3000,
+    hot: true,
+    static: {
+      directory: path.resolve('dist')
+    },
+    allowedHosts: 'all',
+  },
   resolve: {
-    modules: ["node_modules"],
-    extensions: [".ts", ".tsx", ".js", "jsx", "json"],
+    extensions: [".ts", ".tsx", ".js"]
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx|ts|tsx)$/,
-        use: "babel-loader",
-        include: /src/,
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: true
+        },
+        include: /src/
       },
-    //   {
-    //     test: /\.styl$/,
-    //     use: [
-    //       {
-    //         loader: MiniCss.loader,
-    //         options: {
-    //           esModule: true,
-    //         },
-    //       },
-    //       {
-    //         loader: "css-loader",
-    //         options: {
-    //           modules: {
-    //             localIdentName: "[hash:base64:5]",
-    //           },
-    //         },
-    //       },
-    //       "postcss-loader",
-    //       "stylus-loader",
-    //       'styled-components',
-    //     ],
-    //     include: /src/,
-    //   },
-    //   {
-    //     test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-    //     loader: "url-loader",
-    //   },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
       },
-    ],
-  },
-  optimization: {
-    minimizer: [`...`, new CssMinimizerPlugin()],
-    runtimeChunk: "single",
-    splitChunks: {
-      chunks: "all",
-      cacheGroups: {
-        defaultVendors: {
-          name: "vendors",
-          test: /node_modules/,
-          maxSize: 150000,
-          chunks: "initial",
-        },
-      },
-    },
+      {
+        test: /\.styl$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[local]_[hash:base64:5]'
+              }
+            }
+          },
+          'postcss-loader',
+          {
+            loader: 'stylus-loader',
+            options: {
+              sourceMap: false
+            }
+          }
+        ],
+        include: /src/
+      }
+    ]
   },
   plugins: [
     new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
-      APP_ENV: JSON.stringify("production"),
+      APP_ENV: JSON.stringify('production'),
     }),
     new HtmlWebpackPlugin({
-      chunks: ["app", "runtime"],
-      filename: "index.html",
-      template: path.resolve("templates", "index.html"),
-      //minify: { ...htmlMinify },
-    }),
-    // new CopyWebpackPlugin({
-    //   patterns: [{ from: path.resolve("files"), to: path.resolve("dist") }],
-    // }),
-    // new MiniCss({
-    //   filename: "css/[name]_[contenthash].css",
-    //   ignoreOrder: true,
-    // }),
-    // new deadCodePlugin({
-    //   patterns: ["src/**/*.*"],
-    //   failOnHint: true,
-    // }),
-  ],
+        chunks: ['app'],
+        filename: 'index.html',
+        template: path.resolve('templates', 'index.html')
+      })
+  ]
 };
