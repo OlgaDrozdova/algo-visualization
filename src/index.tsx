@@ -8,7 +8,7 @@ import reportWebVitals from "./reportWebVitals";
 import '@fontsource/comfortaa/cyrillic.css';
 
 
-const rootEl = document.getElementById("root") as HTMLElement;
+const rootEl = document.getElementById("app") as HTMLElement;
 const root = createRoot(rootEl);
 
 root.render(

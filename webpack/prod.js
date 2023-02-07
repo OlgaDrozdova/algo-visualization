@@ -1,19 +1,31 @@
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const path = require("path");
+const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const shareable = require('./shareable');
+const shareable = require("./shareable");
+
+const htmlMinify = {
+  removeComments: true,
+  preserveLineBreaks: true,
+  collapseWhitespace: true,
+  removeRedundantAttributes: true,
+  useShortDoctype: true,
+  removeEmptyAttributes: true,
+  removeStyleLinkTypeAttributes: true,
+  keepClosingSlash: true,
+};
 
 module.exports = {
-  mode: 'production',
+  mode: "production",
   entry: {
-    app: path.resolve('src', 'index.tsx')
+    app: path.resolve("src", "index.tsx"),
   },
   output: {
-    filename: '[name].bundle.js',
-    path: path.resolve('dist'),
-    publicPath: ''
+    filename: "js/[name]_[contenthash].js",
+    path: path.resolve("dist"),
+    publicPath: "",
   },
   ...shareable,
   devtool: false,
@@ -21,64 +33,46 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx|ts|tsx)$/,
-        loader: 'babel-loader',
+        loader: "babel-loader",
         options: {
-          cacheDirectory: true
+          cacheDirectory: true,
         },
-        include: /src/
+        include: /src/,
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: ["style-loader", "css-loader"],
       },
-      {
-        test: /\.styl$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              modules: {
-                localIdentName: '[local]_[hash:base64:5]'
-              }
-            }
-          },
-          'postcss-loader',
-          {
-            loader: 'stylus-loader',
-            options: {
-              sourceMap: false
-            }
-          }
-        ],
-        include: /src/
-      }
-    ]
+    ],
   },
   optimization: {
-    runtimeChunk: 'single',
+    runtimeChunk: "single",
     splitChunks: {
-      chunks: 'all',
+      chunks: "all",
       cacheGroups: {
         defaultVendors: {
-          name: 'vendors',
+          name: "vendors",
           test: /node_modules/,
           minSize: 10000,
           maxSize: 250000,
-          chunks: 'initial'
-        }
-      }
-    }
+          chunks: "initial",
+        },
+      },
+    },
   },
   plugins: [
     new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
-      APP_ENV: JSON.stringify('production'),
+      APP_ENV: JSON.stringify("production"),
     }),
     new HtmlWebpackPlugin({
-        chunks: ['app'],
-        filename: 'index.html',
-        template: path.resolve('templates', 'index.html')
-      })
-  ]
+      chunks: ["app"],
+      filename: "index.html",
+      template: path.resolve("templates", "index.html"),
+      minify: { ...htmlMinify },
+    }),
+    new CopyWebpackPlugin({
+      patterns: [{ from: path.resolve("files"), to: path.resolve("dist") }],
+    }),
+  ],
 };

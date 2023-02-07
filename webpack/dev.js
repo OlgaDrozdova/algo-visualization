@@ -1,80 +1,84 @@
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const path = require("path");
+const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const shareable = require('./shareable');
+const shareable = require("./shareable");
 
 module.exports = {
-  mode: 'development',
+  mode: "development",
   entry: {
-    app: path.resolve('src', 'index.tsx')
+    app: path.resolve("src", "index.tsx"),
   },
   output: {
-    filename: '[name].bundle.js',
-    path: path.resolve('dist'),
-    publicPath: '/'
+    filename: "[name].bundle.js",
+    path: path.resolve("dist"),
+    publicPath: "/",
   },
   ...shareable,
-  devtool: 'eval-cheap-module-source-map',
+  devtool: "eval-cheap-module-source-map",
   devServer: {
     port: 3000,
     hot: true,
     static: {
-      directory: path.resolve('dist')
+      directory: path.resolve("dist"),
     },
-    allowedHosts: 'all',
+    allowedHosts: "all",
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js"]
+    extensions: [".ts", ".tsx", ".js"],
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx|ts|tsx)$/,
-        loader: 'babel-loader',
+        loader: "babel-loader",
         options: {
-          cacheDirectory: true
+          cacheDirectory: true,
         },
-        include: /src/
+        include: /src/,
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.styl$/,
         use: [
-          'style-loader',
+          "style-loader",
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               modules: {
-                localIdentName: '[local]_[hash:base64:5]'
-              }
-            }
+                localIdentName: "[local]_[hash:base64:5]",
+              },
+            },
           },
-          'postcss-loader',
+          "postcss-loader",
           {
-            loader: 'stylus-loader',
+            loader: "stylus-loader",
             options: {
-              sourceMap: false
-            }
-          }
+              sourceMap: false,
+            },
+          },
         ],
-        include: /src/
-      }
-    ]
+        include: /src/,
+      },
+    ],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
-      APP_ENV: JSON.stringify('dev'),
+      APP_ENV: JSON.stringify("dev"),
     }),
     new HtmlWebpackPlugin({
-        chunks: ['app'],
-        filename: 'index.html',
-        template: path.resolve('templates', 'index.html')
-      })
-  ]
+      chunks: ["app"],
+      filename: "index.html",
+      template: path.resolve("templates", "index.html"),
+    }),
+    new CopyWebpackPlugin({
+      patterns: [{ from: path.resolve("files"), to: path.resolve("dist") }],
+    }),
+  ],
 };
