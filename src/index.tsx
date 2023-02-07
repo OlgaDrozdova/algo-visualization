@@ -6,15 +6,17 @@ import { Provider } from "react-redux";
 import store from './store';
 import reportWebVitals from "./reportWebVitals";
 import '@fontsource/comfortaa/cyrillic.css';
+import ReactDOM from "react-dom";
 
 
-const rootEl = document.getElementById("app") as HTMLElement;
-const root = createRoot(rootEl);
+//const rootEl = document.getElementById("app") as HTMLElement;
+//const root = createRoot(rootEl);
 
-root.render(
+ReactDOM.render(
   <Provider store={ store }>
     <App />
-  </Provider>
+  </Provider>,
+  document.getElementById("app"),
 );
 
-reportWebVitals();
+//reportWebVitals();
