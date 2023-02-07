@@ -13,13 +13,10 @@ module.exports = {
   output: {
     filename: '[name].bundle.js',
     path: path.resolve('dist'),
-    publicPath: '/'
+    publicPath: ''
   },
   ...shareable,
   devtool: false,
-  resolve: {
-    extensions: [".ts", ".tsx", ".js"]
-  },
   module: {
     rules: [
       {
@@ -57,6 +54,21 @@ module.exports = {
         include: /src/
       }
     ]
+  },
+  optimization: {
+    runtimeChunk: 'single',
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        defaultVendors: {
+          name: 'vendors',
+          test: /node_modules/,
+          minSize: 10000,
+          maxSize: 250000,
+          chunks: 'initial'
+        }
+      }
+    }
   },
   plugins: [
     new CleanWebpackPlugin(),
